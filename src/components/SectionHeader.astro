@@ -11,7 +11,8 @@ const { label, plain, kanji, id } = Astro.props;
 <header id={id} class="relative mx-auto max-w-page px-6 pt-24 pb-8 scroll-mt-16">
   <span
     aria-hidden="true"
-    class="pointer-events-none absolute -top-4 right-2 select-none font-jp text-[8rem] leading-none text-konoha/8 md:text-[10rem]"
+    class="pointer-events-none absolute -top-4 right-2 select-none font-jp text-[8rem] leading-none text-konoha md:text-[10rem]"
+    style="opacity:0.1; animation: kanji-pulse 7s ease-in-out infinite;"
   >
     {kanji}
   </span>

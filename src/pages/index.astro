@@ -8,17 +8,38 @@ import Missions from "../components/Missions.astro";
 import Jutsu from "../components/Jutsu.astro";
 import Scroll from "../components/Scroll.astro";
 import MessengerHawk from "../components/MessengerHawk.astro";
+import FallingLeaves from "../components/FallingLeaves.astro";
+import SideNinjas from "../components/SideNinjas.astro";
 ---
 
 <Base title="Harsha Jaiganesh — Agentic AI Engineer">
-  <Nav />
-  <main>
-    <Hero />
-    <Nindo />
-    <Missions />
-    <MissionLog />
-    <Jutsu />
-    <Scroll />
-    <MessengerHawk />
-  </main>
+  <FallingLeaves />
+  <SideNinjas />
+  <div class="relative z-10">
+    <Nav />
+    <main>
+      <Hero />
+      <div class="reveal"><Nindo /></div>
+      <div class="reveal"><Missions /></div>
+      <div class="reveal"><MissionLog /></div>
+      <div class="reveal"><Jutsu /></div>
+      <div class="reveal"><Scroll /></div>
+      <div class="reveal"><MessengerHawk /></div>
+    </main>
+  </div>
+
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.05 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+  </script>
 </Base>

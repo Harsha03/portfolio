@@ -72,11 +72,126 @@ h3 {
   outline-offset: 2px;
 }
 
+/* ============ Animations ============ */
+
+@keyframes leaf-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes ninja-sway {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-1.5deg);
+  }
+}
+
+@keyframes ninja-dash {
+  0% {
+    transform: translateX(-20vw);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw);
+    opacity: 0;
+  }
+}
+
+@keyframes kanji-pulse {
+  0%, 100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.14;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes chakra-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgb(233 121 23 / 0.5), 0 0 20px 2px rgb(233 121 23 / 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgb(233 121 23 / 0.8), 0 0 32px 6px rgb(233 121 23 / 0.45);
+  }
+}
+
+@keyframes shuriken-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Chakra glow on hover */
+.chakra-card {
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.chakra-card:hover {
+  animation: chakra-pulse 2s ease-in-out infinite;
+}
+
+/* Shuriken icon spin on button hover */
+.shuriken {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+.btn-konoha:hover .shuriken {
+  animation: shuriken-spin 0.8s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

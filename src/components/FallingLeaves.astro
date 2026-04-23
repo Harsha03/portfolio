@@ -1,0 +1,38 @@
+---
+const leaves = Array.from({ length: 14 }).map((_, i) => ({
+  left: (i * 7.3 + 3) % 100,
+  duration: 14 + ((i * 3) % 9),
+  delay: (i * 1.7) % 18,
+  drift: (i % 2 === 0 ? 1 : -1) * (30 + (i * 11) % 80),
+  size: 14 + ((i * 5) % 14),
+  opacity: 0.45 + ((i * 13) % 40) / 100,
+}));
+---
+
+<div
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+>
+  {
+    leaves.map((l) => (
+      <svg
+        viewBox="0 0 40 40"
+        width={l.size}
+        height={l.size}
+        class="absolute text-konoha"
+        style={`left:${l.left}%; top:-5vh; opacity:${l.opacity}; --drift:${l.drift}px; animation: leaf-fall ${l.duration}s linear ${l.delay}s infinite;`}
+      >
+        <path
+          d="M20 4 C24 10 34 16 30 26 C27 32 22 36 20 36 C18 36 13 32 10 26 C6 16 16 10 20 4 Z"
+          fill="currentColor"
+        />
+        <path
+          d="M20 10 L20 34"
+          stroke="#0f0e0c"
+          stroke-width="1.2"
+          opacity="0.45"
+        />
+      </svg>
+    ))
+  }
+</div>
