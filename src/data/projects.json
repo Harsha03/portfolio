@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "slug": "l8ter",
+      "title": "l8ter",
+      "rank": "S",
+      "hook": "iOS inbox for TikTok reels. Claude multimodal classifies, web_search verifies, CoreLocation nudges you when you walk past a saved spot.",
+      "stack": ["Swift", "SwiftUI", "SwiftData", "Claude Haiku 4.5", "CoreLocation"],
+      "source": "https://github.com/Harsha03",
+      "live": null,
+      "summary": "Registry-driven prompt compiles user-defined categories into the Claude tool schema at runtime, so the valid output enum changes dynamically without mutating the cached system prompt. Review queue with confidence-thresholded flagging, multimodal image+caption extraction, graceful tool-failure fallbacks, and prompt caching for cost control."
+    },
+    {
+      "slug": "prelegal",
+      "title": "prelegal",
+      "rank": "A",
+      "hook": "AI-guided legal drafting on 12 Common Paper templates. Multi-user SaaS with live markdown preview and themed PDF export.",
+      "stack": ["Next.js 16", "FastAPI", "Docker", "SQLite", "AI chat workflows"],
+      "source": "https://github.com/Harsha03",
+      "live": null,
+      "summary": "Template-suggestion flow routes plain-language requests to the closest matching legal template. Per-turn auto-save of chat + draft state, AI-draft disclaimers on every surface, and a custom Amber Terminal Archive visual direction (CRT chrome around cream serif preview) carried through to the PDF export. Delivered in one week on a tracked plan."
+    },
+    {
+      "slug": "kanban-pm",
+      "title": "Kanban PM",
+      "rank": "A",
+      "hook": "Full-stack Kanban with JWT auth, multi-board isolation, and an AI sidebar that reads and mutates the board via structured tool calls.",
+      "stack": ["Next.js 16", "React 19", "FastAPI", "JWT", "Playwright"],
+      "source": "https://github.com/Harsha03",
+      "live": null,
+      "summary": "AI assistant can add cards, move columns, and assign labels via structured tool calls scoped to the active board. 44 Vitest + 71 pytest tests plus Playwright E2E flows (including AI-chat mocked endpoints). Custom Warm Atelier design system: Instrument Serif + DM Sans, warm amber/copper palette, grain texture."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+---
+const items = [
+  { href: "#nindo", label: "Nindo" },
+  { href: "#log", label: "Mission Log" },
+  { href: "#missions", label: "Missions" },
+  { href: "#jutsu", label: "Jutsu" },
+  { href: "#scroll", label: "Scroll" },
+  { href: "#hawk", label: "Contact" },
+];
+---
+
+<nav class="sticky top-0 z-40 border-b border-tan/10 bg-ink/85 backdrop-blur">
+  <div class="mx-auto flex max-w-page items-center justify-between gap-4 px-6 py-3 text-sm">
+    <a href="#top" class="font-serif text-base font-bold text-paper">Harsha Jaiganesh</a>
+    <ul class="hidden gap-5 text-tan md:flex">
+      {items.map((i) => (
+        <li>
+          <a href={i.href} class="transition-colors hover:text-konoha">{i.label}</a>
+        </li>
+      ))}
+    </ul>
+    <a href="/resume.pdf" class="bg-konoha px-3 py-1.5 text-xs font-medium text-ink hover:brightness-110">
+      Download CV
+    </a>
+  </div>
+</nav>

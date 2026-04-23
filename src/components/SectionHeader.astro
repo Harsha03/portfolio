@@ -1,0 +1,23 @@
+---
+interface Props {
+  label: string;
+  plain: string;
+  kanji: string;
+  id: string;
+}
+const { label, plain, kanji, id } = Astro.props;
+---
+
+<header id={id} class="relative mx-auto max-w-page px-6 pt-24 pb-8 scroll-mt-16">
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute -top-4 right-2 select-none font-jp text-[8rem] leading-none text-konoha/8 md:text-[10rem]"
+  >
+    {kanji}
+  </span>
+  <div class="flex items-baseline gap-3">
+    <h2 class="text-3xl font-bold text-paper md:text-4xl">{label}</h2>
+    <span class="text-xs uppercase tracking-[0.25em] text-tan">{plain}</span>
+  </div>
+  <div class="mt-4 h-px w-16 bg-konoha"></div>
+</header>

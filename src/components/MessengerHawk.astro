@@ -1,0 +1,43 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const links = [
+  {
+    label: "Email",
+    href: "mailto:jaiganeshharsha@gmail.com",
+    text: "jaiganeshharsha@gmail.com",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/harsha-jaiganesh/",
+    text: "/in/harsha-jaiganesh",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/Harsha03",
+    text: "@Harsha03",
+  },
+];
+---
+
+<section>
+  <SectionHeader id="hawk" label="Messenger Hawk" plain="Contact" kanji="手紙" />
+  <div class="mx-auto grid max-w-page gap-4 px-6 pb-16 md:grid-cols-3">
+    {
+      links.map((l) => (
+        <a
+          href={l.href}
+          rel="noopener"
+          target={l.href.startsWith("mailto") ? "_self" : "_blank"}
+          class="border border-tan/20 bg-ink-2 p-6 transition-colors hover:border-konoha/60"
+        >
+          <p class="text-[11px] uppercase tracking-[0.2em] text-tan">{l.label}</p>
+          <p class="mt-2 font-serif text-xl text-paper">{l.text}</p>
+        </a>
+      ))
+    }
+  </div>
+  <footer class="mx-auto max-w-page px-6 pb-10 text-xs text-tan/60">
+    © {new Date().getFullYear()} Harsha Jaiganesh · 木ノ葉
+  </footer>
+</section>

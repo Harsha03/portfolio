@@ -1,0 +1,30 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+---
+
+<section>
+  <SectionHeader id="scroll" label="Scroll" plain="Resume" kanji="巻物" />
+  <div class="mx-auto max-w-page px-6 pb-12">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <p class="text-tan">Preview below, or download the PDF.</p>
+      <a
+        href="/resume.pdf"
+        download
+        class="inline-block bg-konoha px-4 py-2 text-sm font-medium text-ink hover:brightness-110"
+      >
+        Download PDF
+      </a>
+    </div>
+    <object
+      data="/resume.pdf"
+      type="application/pdf"
+      class="h-[80vh] w-full border border-tan/20 bg-ink-2"
+      aria-label="Harsha Jaiganesh resume preview"
+    >
+      <p class="p-6 text-paper">
+        Your browser can't embed PDFs.{" "}
+        <a class="text-konoha underline" href="/resume.pdf">Download the resume</a>.
+      </p>
+    </object>
+  </div>
+</section>

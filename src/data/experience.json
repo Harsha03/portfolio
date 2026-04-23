@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "title": "Multi-Agent Research System (deep_research)",
+      "stack": "OpenAI GPT-4o-mini · Python · Gradio · SendGrid · asyncio",
+      "bullets": [
+        "Architected a 4-agent pipeline: planner decomposes the query into 5 strategic web searches with reasoning, search runs them concurrently and summarizes each in 300 words, writer synthesizes a 1,000+ word markdown report with follow-ups, email formats and delivers HTML via SendGrid.",
+        "Implemented real-time streamed status through Gradio with per-agent error isolation — a failed search doesn't break the run.",
+        "Each agent exposes a strict Pydantic contract, making the system extensible — swap the search agent without touching the writer."
+      ]
+    },
+    {
+      "title": "Personal AI Agent (portfolio chatbot)",
+      "stack": "OpenAI GPT-4o-mini · Gradio · PyPDF · Pushover",
+      "bullets": [
+        "Portfolio chatbot ingests a LinkedIn PDF + professional summary and answers questions in-character.",
+        "OpenAI function calling for lead capture and unknown-question logging, both triggering real-time Pushover notifications for continuous improvement.",
+        "Tight persona control via system prompt — steers toward professional networking without breaking character."
+      ]
+    },
+    {
+      "title": "LLM Engineering — Applied GenAI Studies",
+      "stack": "OpenAI · Anthropic · Gemini · HuggingFace · LangChain · Chroma · Whisper",
+      "bullets": [
+        "RAG knowledge worker: LangChain retrieval chain over a local corpus, Chroma vector store, OpenAI embeddings, conversational Gradio front end.",
+        "Meeting-minutes pipeline: Whisper transcription → HuggingFace tokenizer + streaming LLM inference → structured markdown with summaries, takeaways, and action items.",
+        "Multi-model chatbot with runtime model selection across OpenAI, Anthropic, and Gemini with streaming responses."
+      ]
+    }
+  ]
+}
