@@ -97,6 +97,30 @@ h3 {
   }
 }
 
+@keyframes beast-drift-left {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(-60vw) translateY(-20px);
+  }
+  100% {
+    transform: translateX(-120vw) translateY(0);
+  }
+}
+
+@keyframes beast-drift-right {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  50% {
+    transform: translateX(60vw) translateY(-15px);
+  }
+  100% {
+    transform: translateX(140vw) translateY(0);
+  }
+}
+
 @keyframes ninja-dash {
   0% {
     transform: translateX(-20vw);
