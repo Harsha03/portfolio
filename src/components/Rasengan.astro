@@ -1,91 +1,181 @@
 ---
-// Fixed scroll-progress indicator shaped like a Rasengan orb.
-// Inner spiral spins continuously; outer ring fills with scroll progress.
-// Click = scroll to top.
+// Anime-style Rasengan:
+//   - Layered radial gradients (white-hot core → cyan → deep blue → dark halo)
+//   - Multiple swirling chakra bands rotating at different speeds/directions
+//   - Orbital chakra motes
+//   - Hover: scale-up, intensified glow, + Web Audio chakra hum
+//   - Click: scroll to top
+//   - Outer ring doubles as scroll progress indicator (vermillion)
 ---
 
 <button
   id="rasengan"
   aria-label="Scroll progress · click to return to top"
-  class="group fixed bottom-6 right-6 z-50 flex h-[74px] w-[74px] items-center justify-center rounded-full border border-paper/20 bg-ink/80 backdrop-blur-md transition-colors hover:border-vermillion/80"
-  style="--progress: 0;"
+  class="group fixed bottom-6 right-6 z-50 grid h-[96px] w-[96px] place-items-center rounded-full border border-paper/15 bg-ink/40 backdrop-blur-md transition-all duration-300 hover:border-[#7ecfff]/60 hover:bg-ink/60"
 >
-  <svg viewBox="0 0 100 100" width="74" height="74" aria-hidden="true" style="filter: drop-shadow(0 0 10px rgba(80, 155, 220, 0.45));">
+  <!-- pulsing outer halo that lives outside the button bounds -->
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-[-14px] rounded-full opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+    style="background: radial-gradient(circle, rgba(126,207,255,0.35) 0%, rgba(77,163,220,0.18) 40%, transparent 70%); filter: blur(6px); animation: raseng-breathe 2.8s ease-in-out infinite;"
+  ></span>
+
+  <svg viewBox="0 0 120 120" width="96" height="96" aria-hidden="true" class="relative">
     <defs>
+      <!-- Core: white hot → cyan → deep blue → near-black -->
       <radialGradient id="raseng-core" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#b6e1f9" stop-opacity="0.95" />
-        <stop offset="45%" stop-color="#4da3dc" stop-opacity="0.9" />
-        <stop offset="100%" stop-color="#16538a" stop-opacity="0.85" />
+        <stop offset="0%"  stop-color="#ffffff" stop-opacity="1" />
+        <stop offset="12%" stop-color="#eaf8ff" stop-opacity="1" />
+        <stop offset="30%" stop-color="#7ecfff" stop-opacity="0.98" />
+        <stop offset="55%" stop-color="#2582c8" stop-opacity="0.95" />
+        <stop offset="80%" stop-color="#123e6d" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#081a33" stop-opacity="0.88" />
       </radialGradient>
-      <filter id="raseng-blur" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="0.6" />
+
+      <!-- Rim highlight (spherical specular) -->
+      <radialGradient id="raseng-rim" cx="38%" cy="32%" r="55%">
+        <stop offset="0%"  stop-color="#ffffff" stop-opacity="0.8" />
+        <stop offset="35%" stop-color="#b6e1f9" stop-opacity="0.3" />
+        <stop offset="100%" stop-color="#b6e1f9" stop-opacity="0" />
+      </radialGradient>
+
+      <!-- Chakra streak gradient (white with blue fade) -->
+      <linearGradient id="raseng-streak" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%"  stop-color="#ffffff" stop-opacity="0" />
+        <stop offset="35%" stop-color="#ffffff" stop-opacity="0.9" />
+        <stop offset="65%" stop-color="#b6e1f9" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#7ecfff" stop-opacity="0" />
+      </linearGradient>
+
+      <!-- Glow blur filter -->
+      <filter id="raseng-glow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1.4" result="b1" />
+        <feMerge>
+          <feMergeNode in="b1" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <!-- Soft blur for outer wisps -->
+      <filter id="raseng-wisp" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="0.7" />
       </filter>
     </defs>
 
-    <!-- outer progress track -->
-    <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(243, 233, 207, 0.15)" stroke-width="2" />
-    <!-- outer progress fill (scroll-bound via --progress 0..1) -->
+    <!-- Outer halo glow (big soft blue) -->
+    <circle
+      cx="60" cy="60" r="56"
+      fill="#4da3dc"
+      opacity="0.18"
+      filter="url(#raseng-wisp)"
+    />
+
+    <!-- Progress track + scroll progress arc -->
+    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(243, 233, 207, 0.14)" stroke-width="1.5" />
     <circle
       class="raseng-progress"
-      cx="50"
-      cy="50"
-      r="44"
+      cx="60" cy="60" r="54"
       fill="none"
       stroke="#b83227"
       stroke-width="2"
       stroke-linecap="round"
-      stroke-dasharray="276.5"
-      stroke-dashoffset="276.5"
-      transform="rotate(-90 50 50)"
-      style="transition: stroke-dashoffset 0.25s ease-out;"
+      stroke-dasharray="339.3"
+      stroke-dashoffset="339.3"
+      transform="rotate(-90 60 60)"
+      style="transition: stroke-dashoffset 0.22s ease-out; filter: drop-shadow(0 0 4px rgba(184, 50, 39, 0.7));"
     />
 
-    <!-- core orb -->
-    <circle cx="50" cy="50" r="32" fill="url(#raseng-core)" />
+    <!-- Outer chakra wisps (slow, counter-clockwise) -->
+    <g style="transform-origin: 60px 60px; animation: raseng-spin-rev 5.5s linear infinite;">
+      <g filter="url(#raseng-wisp)">
+        <path
+          d="M 60 10 A 50 50 0 0 1 108 50"
+          fill="none" stroke="url(#raseng-streak)" stroke-width="3" stroke-linecap="round"
+        />
+        <path
+          d="M 12 60 A 50 50 0 0 1 28 24"
+          fill="none" stroke="url(#raseng-streak)" stroke-width="2.2" stroke-linecap="round" opacity="0.75"
+        />
+        <path
+          d="M 60 108 A 50 50 0 0 1 18 80"
+          fill="none" stroke="url(#raseng-streak)" stroke-width="2" stroke-linecap="round" opacity="0.6"
+        />
+      </g>
+    </g>
 
-    <!-- inner spinning spiral -->
-    <g style="transform-origin: 50px 50px; animation: raseng-spin 2.2s linear infinite;" filter="url(#raseng-blur)">
+    <!-- Main orb core -->
+    <circle cx="60" cy="60" r="40" fill="url(#raseng-core)" />
+    <circle cx="60" cy="60" r="40" fill="url(#raseng-rim)" />
+
+    <!-- Fast-spinning inner chakra bands (clockwise, multi-layer for 3D feel) -->
+    <g style="transform-origin: 60px 60px; animation: raseng-spin 1.4s linear infinite;" filter="url(#raseng-glow)">
+      <!-- Band 1 (equatorial wrap) -->
       <path
-        d="M 50 22 A 28 28 0 0 1 78 50"
-        fill="none"
-        stroke="#ffffff"
-        stroke-width="3"
-        stroke-linecap="round"
-        opacity="0.85"
+        d="M 22 60 Q 60 38 98 60 Q 60 82 22 60 Z"
+        fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" opacity="0.95"
       />
+      <!-- Band 2 (tilted up) -->
       <path
-        d="M 50 30 A 20 20 0 0 1 70 50"
-        fill="none"
-        stroke="#ffffff"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        opacity="0.7"
+        d="M 26 48 Q 60 28 94 48 Q 60 70 26 48 Z"
+        fill="none" stroke="#e8f6ff" stroke-width="1.8" stroke-linecap="round" opacity="0.7"
       />
+      <!-- Band 3 (tilted down) -->
       <path
-        d="M 50 38 A 12 12 0 0 1 62 50"
-        fill="none"
-        stroke="#ffffff"
-        stroke-width="1.6"
-        stroke-linecap="round"
-        opacity="0.55"
+        d="M 26 72 Q 60 92 94 72 Q 60 50 26 72 Z"
+        fill="none" stroke="#b6e1f9" stroke-width="1.6" stroke-linecap="round" opacity="0.6"
       />
     </g>
 
-    <!-- counter-rotating highlight arc -->
-    <g style="transform-origin: 50px 50px; animation: raseng-spin-rev 3.6s linear infinite;">
+    <!-- Medium-speed counter-spiral (different direction, perpendicular feel) -->
+    <g style="transform-origin: 60px 60px; animation: raseng-spin-rev 2.2s linear infinite;" filter="url(#raseng-glow)">
+      <!-- Vertical ring -->
       <path
-        d="M 50 16 A 34 34 0 0 1 80 40"
-        fill="none"
-        stroke="rgba(255,255,255,0.6)"
-        stroke-width="1.2"
-        stroke-linecap="round"
+        d="M 60 22 Q 82 60 60 98 Q 38 60 60 22 Z"
+        fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.85"
       />
+      <!-- Diagonal wrap -->
+      <path
+        d="M 32 32 Q 60 42 88 88 Q 60 78 32 32 Z"
+        fill="none" stroke="#e8f6ff" stroke-width="1.4" stroke-linecap="round" opacity="0.55"
+      />
+    </g>
+
+    <!-- White-hot hyper-fast core spiral -->
+    <g style="transform-origin: 60px 60px; animation: raseng-spin 0.7s linear infinite;">
+      <path
+        d="M 44 60 Q 60 50 76 60 Q 60 70 44 60 Z"
+        fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" opacity="0.95"
+      />
+    </g>
+
+    <!-- White-hot nucleus -->
+    <circle cx="60" cy="60" r="6" fill="#ffffff" opacity="0.98">
+      <animate attributeName="r" values="6;7.5;6" dur="1.6s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.95;1;0.95" dur="1.6s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="60" cy="60" r="2.8" fill="#eaf8ff" opacity="1" />
+
+    <!-- Orbital chakra motes -->
+    <g style="transform-origin: 60px 60px; animation: raseng-spin 3s linear infinite;">
+      <circle cx="60" cy="14" r="1.4" fill="#ffffff" opacity="0.9">
+        <animate attributeName="opacity" values="0.2;1;0.2" dur="1.4s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    <g style="transform-origin: 60px 60px; animation: raseng-spin-rev 4.2s linear infinite;">
+      <circle cx="106" cy="60" r="1" fill="#b6e1f9" opacity="0.8">
+        <animate attributeName="opacity" values="0.1;0.9;0.1" dur="1.8s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    <g style="transform-origin: 60px 60px; animation: raseng-spin 5.6s linear infinite;">
+      <circle cx="60" cy="108" r="1.2" fill="#7ecfff" opacity="0.8">
+        <animate attributeName="opacity" values="0.1;0.95;0.1" dur="2.2s" repeatCount="indefinite" />
+      </circle>
     </g>
   </svg>
 
-  <!-- tooltip / label on hover -->
-  <span class="pointer-events-none absolute -top-8 right-0 whitespace-nowrap rounded border border-paper/20 bg-ink px-2 py-1 font-mono text-[9px] uppercase tracking-[0.25em] text-paper opacity-0 transition-opacity group-hover:opacity-100">
-    ↑ Return
+  <!-- hover tooltip -->
+  <span class="pointer-events-none absolute -top-9 right-0 whitespace-nowrap rounded border border-paper/20 bg-ink px-2 py-1 font-mono text-[9px] uppercase tracking-[0.25em] text-paper opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+    螺旋丸 · Rasengan ↑
   </span>
 </button>
 
@@ -93,7 +183,8 @@
   const el = document.getElementById("rasengan");
   if (el) {
     const progressCircle = el.querySelector(".raseng-progress") as SVGCircleElement | null;
-    const CIRC = 276.5; // 2 * PI * r(44)
+    const CIRC = 339.3; // 2 * π * r(54)
+
     const update = () => {
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
@@ -105,8 +196,142 @@
     update();
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
-    el.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    el.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    // ===================== CHAKRA HUM (Web Audio) =====================
+    // Synthesized in-browser. No external files. Initialized lazily on first
+    // user interaction to satisfy autoplay policies.
+    type ChakraAudio = {
+      ctx: AudioContext;
+      masterGain: GainNode;
+      whoosh: GainNode;
+      crackle: GainNode;
+      hum: GainNode;
+    };
+    let chakra: ChakraAudio | null = null;
+
+    const buildChakra = (): ChakraAudio => {
+      const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+      const ctx = new Ctx();
+
+      // Shared white-noise buffer (2s loop)
+      const noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+      const data = noiseBuf.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+
+      // ---- Whoosh: bandpass noise around ~320Hz, gentle LFO wobble ----
+      const whNoise = ctx.createBufferSource();
+      whNoise.buffer = noiseBuf;
+      whNoise.loop = true;
+      const whFilter = ctx.createBiquadFilter();
+      whFilter.type = "bandpass";
+      whFilter.frequency.value = 320;
+      whFilter.Q.value = 1.6;
+      const whLfo = ctx.createOscillator();
+      whLfo.frequency.value = 4.2;
+      const whLfoGain = ctx.createGain();
+      whLfoGain.gain.value = 90;
+      whLfo.connect(whLfoGain);
+      whLfoGain.connect(whFilter.frequency);
+      const whoosh = ctx.createGain();
+      whoosh.gain.value = 0;
+      whNoise.connect(whFilter);
+      whFilter.connect(whoosh);
+      whNoise.start();
+      whLfo.start();
+
+      // ---- Crackle: high-passed noise, very subtle, for chakra sparkle ----
+      const crNoise = ctx.createBufferSource();
+      crNoise.buffer = noiseBuf;
+      crNoise.loop = true;
+      const crFilter = ctx.createBiquadFilter();
+      crFilter.type = "highpass";
+      crFilter.frequency.value = 5800;
+      const crFilter2 = ctx.createBiquadFilter();
+      crFilter2.type = "peaking";
+      crFilter2.frequency.value = 9000;
+      crFilter2.Q.value = 0.9;
+      crFilter2.gain.value = 6;
+      const crackle = ctx.createGain();
+      crackle.gain.value = 0;
+      crNoise.connect(crFilter);
+      crFilter.connect(crFilter2);
+      crFilter2.connect(crackle);
+      crNoise.start();
+
+      // ---- Hum: detuned oscillators (fifth) for a faint tonal body ----
+      const hum = ctx.createGain();
+      hum.gain.value = 0;
+      const osc1 = ctx.createOscillator();
+      osc1.type = "triangle";
+      osc1.frequency.value = 96;
+      const osc2 = ctx.createOscillator();
+      osc2.type = "sine";
+      osc2.frequency.value = 144;
+      osc2.detune.value = -6;
+      osc1.connect(hum);
+      osc2.connect(hum);
+      osc1.start();
+      osc2.start();
+
+      // Master
+      const masterGain = ctx.createGain();
+      masterGain.gain.value = 1;
+      whoosh.connect(masterGain);
+      crackle.connect(masterGain);
+      hum.connect(masterGain);
+      masterGain.connect(ctx.destination);
+
+      return { ctx, masterGain, whoosh, crackle, hum };
+    };
+
+    const ensureChakra = async () => {
+      if (!chakra) chakra = buildChakra();
+      if (chakra.ctx.state === "suspended") await chakra.ctx.resume();
+      return chakra;
+    };
+
+    const rampIn = async () => {
+      const c = await ensureChakra();
+      const now = c.ctx.currentTime;
+      const ramp = 0.22;
+      [c.whoosh, c.crackle, c.hum].forEach((g) => {
+        g.gain.cancelScheduledValues(now);
+        g.gain.setValueAtTime(g.gain.value, now);
+      });
+      c.whoosh.gain.linearRampToValueAtTime(0.11, now + ramp);
+      c.crackle.gain.linearRampToValueAtTime(0.022, now + ramp);
+      c.hum.gain.linearRampToValueAtTime(0.045, now + ramp);
+    };
+
+    const rampOut = () => {
+      if (!chakra) return;
+      const now = chakra.ctx.currentTime;
+      const ramp = 0.35;
+      [chakra.whoosh, chakra.crackle, chakra.hum].forEach((g) => {
+        g.gain.cancelScheduledValues(now);
+        g.gain.setValueAtTime(g.gain.value, now);
+        g.gain.linearRampToValueAtTime(0, now + ramp);
+      });
+    };
+
+    // Initialize the audio graph lazily (one of these will fire first)
+    const lazyInit = () => {
+      if (!chakra) chakra = buildChakra();
+    };
+    document.addEventListener("pointerdown", lazyInit, { once: true });
+    document.addEventListener("keydown", lazyInit, { once: true });
+
+    el.addEventListener("mouseenter", rampIn);
+    el.addEventListener("mouseleave", rampOut);
+    el.addEventListener("focusin", rampIn);
+    el.addEventListener("focusout", rampOut);
+
+    // Respect reduced motion by muting audio too
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduce.matches) {
+      el.removeEventListener("mouseenter", rampIn);
+      el.removeEventListener("focusin", rampIn);
+    }
   }
 </script>
