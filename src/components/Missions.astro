@@ -1,7 +1,9 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
+import ChakraNature from "./ChakraNature.astro";
 import data from "../data/projects.json";
 const projects = data.projects;
+type Nature = "fire" | "water" | "wind" | "earth" | "lightning";
 ---
 
 <section class="relative bg-ink">
@@ -27,6 +29,12 @@ const projects = data.projects;
                 <span class="h-1.5 w-1.5 rounded-full bg-vermillion"></span>
                 {p.rank}-Rank
               </div>
+              <!-- chakra nature -->
+              {p.nature && (
+                <div class="mt-4">
+                  <ChakraNature nature={p.nature as Nature} />
+                </div>
+              )}
             </div>
 
             <!-- title + hook -->

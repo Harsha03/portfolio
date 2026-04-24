@@ -1,0 +1,34 @@
+---
+interface Props {
+  nature: "fire" | "water" | "wind" | "earth" | "lightning";
+}
+const { nature } = Astro.props;
+
+const natures = {
+  fire:      { kanji: "火", label: "Katon",  english: "Fire",      color: "#d34a2f", glow: "rgb(211 74 47 / 0.4)" },
+  water:     { kanji: "水", label: "Suiton", english: "Water",     color: "#3c7fb8", glow: "rgb(60 127 184 / 0.4)" },
+  wind:      { kanji: "風", label: "Fūton",  english: "Wind",      color: "#6aa880", glow: "rgb(106 168 128 / 0.4)" },
+  earth:     { kanji: "土", label: "Doton",  english: "Earth",     color: "#a88555", glow: "rgb(168 133 85 / 0.4)" },
+  lightning: { kanji: "雷", label: "Raiton", english: "Lightning", color: "#e7c458", glow: "rgb(231 196 88 / 0.45)" },
+} as const;
+
+const n = natures[nature];
+---
+
+<div
+  class="inline-flex items-center gap-2.5"
+  title={`${n.label} · ${n.english} release`}
+>
+  <span
+    class="grid h-8 w-8 place-items-center rounded-full border font-jp text-[16px] leading-none"
+    style={`color:${n.color}; border-color:${n.color}; background:${n.glow.replace("0.4", "0.08").replace("0.45", "0.1")}; box-shadow: 0 0 14px ${n.glow};`}
+  >
+    {n.kanji}
+  </span>
+  <div class="flex flex-col leading-tight">
+    <span class="font-mono text-[9px] uppercase tracking-[0.25em] text-paper/55">Nature</span>
+    <span class="font-mono text-[10px] uppercase tracking-[0.2em]" style={`color:${n.color};`}>
+      {n.label} · {n.english}
+    </span>
+  </div>
+</div>

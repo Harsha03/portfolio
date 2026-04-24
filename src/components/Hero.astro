@@ -1,17 +1,26 @@
 ---
 import Hanko from "./Hanko.astro";
+import SealingCircle from "./SealingCircle.astro";
 const tagline = "I build AI that thinks, plans, and executes — not just responds.";
 ---
 
 <section id="top" class="grain relative overflow-hidden bg-ink">
-  <!-- huge faded mincho kanji behind -->
-  <span
+  <!-- Fūinjutsu sealing circle, large, slowly rotating behind hero copy -->
+  <div
     aria-hidden="true"
-    class="pointer-events-none absolute -top-28 -right-12 z-0 select-none font-jp leading-none text-vermillion/18 md:-right-8"
-    style="font-size: clamp(20rem, 34vw, 40rem); animation: kanji-pulse 9s ease-in-out infinite;"
+    class="pointer-events-none absolute top-1/2 right-[-18%] z-0 hidden -translate-y-1/2 md:block"
+    style="width: 800px; height: 800px; opacity: 0.16; animation: seal-rotate 180s linear infinite;"
   >
-    忍
-  </span>
+    <SealingCircle size={800} colorClass="text-vermillion" />
+  </div>
+  <!-- counter-rotating smaller seal inside the first for parallax -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-1/2 right-[0%] z-0 hidden -translate-y-1/2 md:block"
+    style="width: 360px; height: 360px; opacity: 0.22; animation: seal-rotate-rev 120s linear infinite;"
+  >
+    <SealingCircle size={360} colorClass="text-gold" />
+  </div>
 
   <!-- tategaki kanji column in left margin -->
   <span

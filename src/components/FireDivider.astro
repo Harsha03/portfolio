@@ -1,0 +1,71 @@
+---
+// Will of Fire flame between sections.
+// Use as a bridge between paper ↔ ink sections. `from` and `to` set the bleed colors.
+interface Props {
+  from?: "paper" | "ink";
+  to?: "paper" | "ink";
+  label?: string;
+}
+const { from = "ink", to = "paper", label = "Will of Fire · 火の意志" } = Astro.props;
+const fromBg = from === "paper" ? "bg-paper" : "bg-ink";
+const toBg = to === "paper" ? "bg-paper" : "bg-ink";
+const bodyBg = from === to ? fromBg : fromBg;
+const textColor = from === "paper" ? "text-ink" : "text-paper";
+const ruleColor = from === "paper" ? "bg-ink/20" : "bg-paper/20";
+---
+
+<div class={`relative ${bodyBg} ${textColor}`}>
+  <!-- subtle gradient bleed to the next section -->
+  <div
+    class={`absolute inset-x-0 bottom-0 h-24 ${toBg}`}
+    style="clip-path: polygon(0 100%, 100% 100%, 100% 60%, 0 60%);"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto flex max-w-page items-center gap-6 px-6 py-12 lg:pl-24">
+    <span class={`h-px flex-1 ${ruleColor}`}></span>
+
+    <div class="flex items-center gap-3">
+      <!-- Flame SVG: stylized, ink-brush, with a soft flicker -->
+      <svg
+        viewBox="0 0 80 120"
+        width="38"
+        height="57"
+        aria-hidden="true"
+        style="animation: flame-flicker 3.4s ease-in-out infinite; transform-origin: 40px 110px;"
+      >
+        <defs>
+          <linearGradient id="flame-grad" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stop-color="#b83227" />
+            <stop offset="55%" stop-color="#e97917" />
+            <stop offset="100%" stop-color="#f3e9cf" />
+          </linearGradient>
+        </defs>
+        <!-- outer flame body -->
+        <path
+          d="M40 112 C18 102 8 82 14 58 C17 46 24 38 28 28 C32 18 34 10 40 4 C46 12 49 22 50 32 C52 44 58 48 62 58 C70 80 60 102 40 112 Z"
+          fill="url(#flame-grad)"
+          opacity="0.92"
+        />
+        <!-- inner flame -->
+        <path
+          d="M40 104 C28 96 22 80 28 62 C31 52 36 46 38 38 C40 30 40 22 44 16 C48 22 50 32 52 40 C54 50 58 56 58 66 C58 86 52 100 40 104 Z"
+          fill="#f3e9cf"
+          opacity="0.7"
+        />
+        <!-- core white-hot -->
+        <path
+          d="M40 96 C34 88 32 74 38 60 C41 52 42 44 44 38 C46 46 48 56 50 64 C52 74 48 90 40 96 Z"
+          fill="#ffffff"
+          opacity="0.85"
+        />
+      </svg>
+
+      <span class="font-mono text-[10px] uppercase tracking-[0.35em] opacity-80">
+        {label}
+      </span>
+    </div>
+
+    <span class={`h-px flex-1 ${ruleColor}`}></span>
+  </div>
+</div>

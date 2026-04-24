@@ -9,19 +9,29 @@ import Jutsu from "../components/Jutsu.astro";
 import Scroll from "../components/Scroll.astro";
 import MessengerHawk from "../components/MessengerHawk.astro";
 import FallingLeaves from "../components/FallingLeaves.astro";
+import HandSealStrip from "../components/HandSealStrip.astro";
+import FireDivider from "../components/FireDivider.astro";
+import Rasengan from "../components/Rasengan.astro";
 ---
 
 <Base title="Harsha Jaiganesh — Agentic AI Engineer">
   <FallingLeaves />
+  <Rasengan />
   <div class="relative z-10">
     <Nav />
     <main>
       <Hero />
+      <HandSealStrip variant="ink" />
       <div class="reveal"><Nindo /></div>
+      <FireDivider from="paper" to="ink" label="Will of Fire · 火の意志" />
       <div class="reveal"><Missions /></div>
+      <FireDivider from="ink" to="paper" label="Konoha Archive · 木ノ葉図書館" />
       <div class="reveal"><MissionLog /></div>
+      <FireDivider from="paper" to="ink" label="Ninjutsu Codex · 忍術目録" />
       <div class="reveal"><Jutsu /></div>
+      <FireDivider from="ink" to="paper" label="Official Record · 公式記録" />
       <div class="reveal"><Scroll /></div>
+      <FireDivider from="paper" to="ink" label="Messenger Hawk · 使いの鷹" />
       <div class="reveal"><MessengerHawk /></div>
     </main>
   </div>

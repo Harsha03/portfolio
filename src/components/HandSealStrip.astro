@@ -1,0 +1,47 @@
+---
+// The 12 zodiac hand seals Naruto uses to channel jutsu.
+// Rendered as a marquee-style strip that pulses each kanji in sequence.
+interface Props {
+  variant?: "paper" | "ink";
+}
+const { variant = "ink" } = Astro.props;
+const seals = [
+  { k: "子", r: "Ne",      e: "Rat" },
+  { k: "丑", r: "Ushi",    e: "Ox" },
+  { k: "寅", r: "Tora",    e: "Tiger" },
+  { k: "卯", r: "U",       e: "Hare" },
+  { k: "辰", r: "Tatsu",   e: "Dragon" },
+  { k: "巳", r: "Mi",      e: "Snake" },
+  { k: "午", r: "Uma",     e: "Horse" },
+  { k: "未", r: "Hitsuji", e: "Ram" },
+  { k: "申", r: "Saru",    e: "Monkey" },
+  { k: "酉", r: "Tori",    e: "Bird" },
+  { k: "戌", r: "Inu",     e: "Dog" },
+  { k: "亥", r: "I",       e: "Boar" },
+];
+const onPaper = variant === "paper";
+---
+
+<div
+  aria-hidden="true"
+  class={`relative overflow-hidden border-y ${onPaper ? "border-ink/15 bg-paper-2" : "border-paper/10 bg-ink-2"}`}
+>
+  <div class="mx-auto flex max-w-page items-center gap-6 px-6 py-5 font-mono text-[10px] uppercase tracking-[0.3em] lg:pl-24">
+    <span class={onPaper ? "text-vermillion" : "text-vermillion"}>Weaving jutsu</span>
+    <span class={onPaper ? "text-ink/35" : "text-paper/35"}>▸</span>
+    <div class="flex flex-1 flex-wrap items-baseline gap-x-5 gap-y-3">
+      {
+        seals.map((s, i) => (
+          <span
+            class="handseal inline-flex items-baseline gap-1.5"
+            style={`animation: handseal-flash 8.4s ease-in-out ${i * 0.7}s infinite;`}
+          >
+            <span class={`font-jp text-[20px] leading-none ${onPaper ? "text-ink" : "text-paper"}`}>{s.k}</span>
+            <span class={`text-[9px] ${onPaper ? "text-ink/50" : "text-paper/45"}`}>{s.r}</span>
+          </span>
+        ))
+      }
+    </div>
+    <span class={onPaper ? "text-ink/50" : "text-paper/50"}>十二 · seals</span>
+  </div>
+</div>

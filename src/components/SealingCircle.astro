@@ -1,0 +1,122 @@
+---
+interface Props {
+  size?: number;
+  className?: string;
+  style?: string;
+  colorClass?: string;
+}
+const {
+  size = 600,
+  className = "",
+  style = "",
+  colorClass = "text-vermillion",
+} = Astro.props;
+// Kanji phrase repeating around the ring (seal / bind / technique / barrier)
+const ringText = "　封　·　印　·　呪　·　術　·　結　·　界　·　封　·　印　·　呪　·　術　·　結　·　界　·　封　·　印　";
+---
+
+<svg
+  viewBox="0 0 500 500"
+  width={size}
+  height={size}
+  class={`${colorClass} ${className}`}
+  style={style}
+  aria-hidden="true"
+>
+  <defs>
+    <!-- clockwise text path just inside the 2nd ring -->
+    <path
+      id="seal-text-ring"
+      d="M 250 76 A 174 174 0 1 1 249.9 76"
+    />
+    <!-- inner 8-point star path (octagram from two overlapping squares) -->
+  </defs>
+
+  <g fill="none" stroke="currentColor" stroke-linecap="round">
+    <!-- outer rim, thick -->
+    <circle cx="250" cy="250" r="244" stroke-width="1.2" opacity="0.85" />
+    <circle cx="250" cy="250" r="232" stroke-width="0.6" opacity="0.55" />
+    <!-- 48 radial ticks between outer rings -->
+    {
+      Array.from({ length: 48 }).map((_, i) => {
+        const angle = (i * 360) / 48;
+        return (
+          <line
+            x1="250"
+            y1="6"
+            x2="250"
+            y2="18"
+            stroke-width="0.8"
+            transform={`rotate(${angle} 250 250)`}
+            opacity={i % 4 === 0 ? 1 : 0.4}
+          />
+        );
+      })
+    }
+    <!-- kanji text ring boundary -->
+    <circle cx="250" cy="250" r="196" stroke-width="0.8" opacity="0.4" />
+    <circle cx="250" cy="250" r="156" stroke-width="0.8" opacity="0.4" />
+    <!-- primary ring -->
+    <circle cx="250" cy="250" r="140" stroke-width="1.5" opacity="0.9" />
+
+    <!-- double octagram (star of two rotated squares) -->
+    <rect x="150" y="150" width="200" height="200" stroke-width="1" opacity="0.7" />
+    <rect
+      x="150"
+      y="150"
+      width="200"
+      height="200"
+      stroke-width="1"
+      opacity="0.7"
+      transform="rotate(45 250 250)"
+    />
+    <circle cx="250" cy="250" r="70" stroke-width="1" opacity="0.65" />
+
+    <!-- 8 radial spokes from center to 140-ring -->
+    {
+      Array.from({ length: 8 }).map((_, i) => {
+        const angle = (i * 45) * (Math.PI / 180);
+        const x2 = 250 + Math.cos(angle - Math.PI / 2) * 140;
+        const y2 = 250 + Math.sin(angle - Math.PI / 2) * 140;
+        const x1 = 250 + Math.cos(angle - Math.PI / 2) * 70;
+        const y1 = 250 + Math.sin(angle - Math.PI / 2) * 70;
+        return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke-width="0.9" opacity="0.55" />;
+      })
+    }
+
+    <!-- inner seal core -->
+    <circle cx="250" cy="250" r="44" stroke-width="1.2" />
+    <circle cx="250" cy="250" r="30" stroke-width="0.7" opacity="0.6" />
+  </g>
+
+  <!-- Kanji phrase curving around ring -->
+  <text
+    font-family="Shippori Mincho, serif"
+    font-weight="700"
+    font-size="20"
+    fill="currentColor"
+    opacity="0.9"
+    letter-spacing="6"
+  >
+    <textPath href="#seal-text-ring" startOffset="0">{ringText}</textPath>
+  </text>
+
+  <!-- Four cardinal nature kanji (outside the inner ring) -->
+  <g font-family="Shippori Mincho, serif" font-weight="700" font-size="28" fill="currentColor" text-anchor="middle" opacity="0.95">
+    <text x="250" y="122">火</text>
+    <text x="380" y="260">水</text>
+    <text x="250" y="402">土</text>
+    <text x="120" y="260">風</text>
+  </g>
+
+  <!-- Center bold character: 封 (seal) -->
+  <text
+    x="250"
+    y="278"
+    text-anchor="middle"
+    font-family="Shippori Mincho, serif"
+    font-weight="700"
+    font-size="68"
+    fill="currentColor"
+  >封</text>
+</svg>
