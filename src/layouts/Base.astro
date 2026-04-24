@@ -4,7 +4,10 @@ interface Props {
   title: string;
   description?: string;
 }
-const { title, description = "Harsha Jaiganesh — Agentic AI engineer." } = Astro.props;
+const {
+  title,
+  description = "Harsha Jaiganesh — Agentic AI engineer shipping autonomous, tool-using systems end-to-end.",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -13,11 +16,14 @@ const { title, description = "Harsha Jaiganesh — Agentic AI engineer." } = Ast
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f0e0c" />
+    <meta name="theme-color" content="#14110d" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href="/fonts/IBMPlexSerif-Bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Fraunces-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Newsreader-Variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/ShipporiMincho-Bold.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body class="bg-ink text-paper antialiased">
     <slot />

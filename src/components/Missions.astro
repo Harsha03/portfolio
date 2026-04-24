@@ -2,55 +2,81 @@
 import SectionHeader from "./SectionHeader.astro";
 import data from "../data/projects.json";
 const projects = data.projects;
-const rankStyles: Record<string, string> = {
-  S: "text-konoha border-konoha bg-konoha/10",
-  A: "text-paper border-paper",
-  B: "text-tan border-tan",
-  C: "text-tan/70 border-tan/70",
-};
 ---
 
-<section>
-  <SectionHeader id="missions" label="Missions" plain="Featured Projects" kanji="巻物" />
-  <div class="mx-auto grid max-w-page gap-5 px-6 pb-12 md:grid-cols-3">
-    {
-      projects.map((p) => (
-        <article class="chakra-card flex flex-col border border-tan/20 bg-ink-2 p-6 hover:border-konoha/60">
-          <div class="flex items-start justify-between gap-3">
-            <h3 class="font-serif text-2xl text-paper">{p.title}</h3>
-            <span class={`shrink-0 border px-2 py-0.5 text-[10px] font-bold tracking-wider ${rankStyles[p.rank]}`}>
-              {p.rank}-RANK
-            </span>
-          </div>
-          <p class="mt-3 text-paper/95">{p.hook}</p>
-          <ul class="mt-4 flex flex-wrap gap-1.5">
-            {p.stack.map((s) => (
-              <li class="border border-tan/30 px-2 py-0.5 text-[11px] text-tan">{s}</li>
-            ))}
-          </ul>
-          <p class="mt-4 text-sm leading-relaxed text-paper/75">{p.summary}</p>
-          <div class="mt-auto flex gap-4 pt-5 text-sm">
-            <a
-              href={p.source}
-              class="text-konoha hover:underline"
-              rel="noopener"
-              target="_blank"
-            >
-              Source ↗
-            </a>
-            {p.live && (
-              <a
-                href={p.live}
-                class="text-konoha hover:underline"
-                rel="noopener"
-                target="_blank"
-              >
-                Live ↗
-              </a>
-            )}
-          </div>
-        </article>
-      ))
-    }
+<section class="relative bg-ink">
+  <SectionHeader id="missions" numeral="弐" label="Missions" plain="Featured Projects" />
+
+  <div class="relative mx-auto max-w-page px-6 pb-24 lg:pl-24">
+    <div class="space-y-10">
+      {
+        projects.map((p, i) => (
+          <article class="chakra-card group relative grid grid-cols-12 gap-x-6 gap-y-4 border border-paper/15 bg-ink-2 p-6 md:p-10">
+            <!-- big index number in margin -->
+            <div class="col-span-12 md:col-span-2">
+              <div class="flex items-baseline gap-3">
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-paper/50">
+                  Mission
+                </span>
+                <span class="font-display text-vermillion" style="font-size:2.75rem; line-height:1; font-weight:600; font-variation-settings:'SOFT' 100;">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <!-- rank as seal -->
+              <div class="mt-4 inline-flex items-center gap-2 border border-vermillion/70 bg-vermillion/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.25em] text-vermillion">
+                <span class="h-1.5 w-1.5 rounded-full bg-vermillion"></span>
+                {p.rank}-Rank
+              </div>
+            </div>
+
+            <!-- title + hook -->
+            <div class="col-span-12 md:col-span-7">
+              <h3 class="font-display font-bold text-paper" style="font-size: clamp(1.8rem, 3.2vw, 2.8rem); line-height: 0.98; letter-spacing:-0.02em; font-variation-settings: 'SOFT' 50, 'WONK' 1;">
+                {p.title}
+              </h3>
+              <p class="mt-4 font-display italic text-paper/90" style="font-size:1.25rem; line-height:1.35; font-variation-settings: 'SOFT' 80;">
+                {p.hook}
+              </p>
+              <p class="mt-5 text-[0.98rem] leading-[1.65] text-paper/75">{p.summary}</p>
+            </div>
+
+            <!-- stack + links aside -->
+            <aside class="col-span-12 space-y-5 border-t border-paper/10 pt-5 md:col-span-3 md:border-t-0 md:border-l md:border-paper/10 md:pl-6 md:pt-0">
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold/80">Stack</p>
+                <ul class="mt-3 space-y-1 font-mono text-[11px] text-paper/85">
+                  {p.stack.map((s) => (
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1.5 h-1 w-1 flex-none bg-vermillion"></span>
+                      <span>{s}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="space-y-1">
+                <a
+                  href={p.source}
+                  target="_blank"
+                  rel="noopener"
+                  class="brush-link block font-mono text-[11px] uppercase tracking-[0.25em] text-paper"
+                >
+                  Source ↗
+                </a>
+                {p.live && (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noopener"
+                    class="brush-link block font-mono text-[11px] uppercase tracking-[0.25em] text-paper"
+                  >
+                    Live ↗
+                  </a>
+                )}
+              </div>
+            </aside>
+          </article>
+        ))
+      }
+    </div>
   </div>
 </section>

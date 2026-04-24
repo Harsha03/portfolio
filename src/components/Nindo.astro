@@ -2,23 +2,47 @@
 import SectionHeader from "./SectionHeader.astro";
 ---
 
-<section>
-  <SectionHeader id="nindo" label="Nindo" plain="The Ninja Way · About" kanji="道" />
-  <div class="mx-auto max-w-prose space-y-4 px-6 pb-8 text-lg leading-relaxed text-paper/90">
-    <p>
-      I build AI that doesn't just reply — it decides, calls tools, verifies with the web, and
-      ships. My focus is agentic systems: multi-agent orchestration, strict tool schemas,
-      structured outputs, RAG over private corpora, and multimodal extraction from images
-      and audio.
-    </p>
-    <p>
-      I work the full stack so AI features land as real products, not demos — native iOS
-      with Swift and CoreLocation, Next.js + FastAPI on the web, Docker around the edges. I
-      care about the quiet parts: prompt caching on the cached prefix, graceful tool
-      fallbacks, confidence-thresholded review queues, and interfaces that feel intentional.
-    </p>
-    <p class="text-tan">
-      Currently open to roles where AI is the product, not a sidebar.
-    </p>
+<section class="grain-light relative bg-paper text-ink">
+  <SectionHeader id="nindo" numeral="壱" label="Nindo" plain="The Ninja Way · About" variant="paper" />
+
+  <div class="relative mx-auto max-w-page px-6 pb-24 lg:pl-24">
+    <div class="grid grid-cols-12 gap-x-6 gap-y-8">
+      <!-- drop cap pull quote -->
+      <aside class="col-span-12 md:col-span-4 md:pt-4">
+        <p class="font-mono text-[11px] uppercase tracking-[0.3em] text-vermillion">Manifesto</p>
+        <blockquote class="mt-5 font-display italic text-ink" style="font-size: clamp(1.5rem, 2.2vw, 2.1rem); line-height: 1.15; font-variation-settings: 'SOFT' 100, 'WONK' 1;">
+          <span class="text-vermillion">“</span>AI that doesn't just reply — it decides, calls tools, verifies with the web, and ships.<span class="text-vermillion">”</span>
+        </blockquote>
+        <div class="mt-4 h-px w-12 bg-ink/30"></div>
+        <p class="mt-3 font-mono text-[11px] uppercase tracking-[0.25em] text-ink/50">— HJ, 2026</p>
+      </aside>
+
+      <!-- body columns with drop cap -->
+      <div class="col-span-12 md:col-span-8">
+        <p class="relative text-[1.08rem] leading-[1.7] text-ink/90">
+          <span class="float-left mr-3 font-display text-[5.5rem] leading-[0.78] text-vermillion" style="font-variation-settings: 'SOFT' 100, 'WONK' 1;">M</span>
+          y focus is agentic systems: multi-agent orchestration, strict tool schemas, structured
+          outputs, RAG over private corpora, and multimodal extraction from images and audio. I
+          work the full stack so AI features land as real products, not demos — native iOS with
+          Swift and CoreLocation, Next.js + FastAPI on the web, Docker around the edges.
+        </p>
+        <p class="mt-5 text-[1.08rem] leading-[1.7] text-ink/85">
+          I care about the quiet parts: prompt caching on the cached prefix, graceful tool
+          fallbacks, confidence-thresholded review queues, interfaces that feel intentional. The
+          outcome of any mission — shipped software that survives contact with users.
+        </p>
+
+        <div class="mt-8 grid grid-cols-2 gap-6 border-t border-ink/15 pt-6">
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/50">Currently</p>
+            <p class="mt-2 font-display italic text-ink" style="font-size: 1.2rem;">Open to roles where AI is the product</p>
+          </div>
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/50">Location</p>
+            <p class="mt-2 font-display italic text-ink" style="font-size: 1.2rem;">Remote · Hidden Leaf</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

@@ -2,28 +2,35 @@
 import SectionHeader from "./SectionHeader.astro";
 ---
 
-<section>
-  <SectionHeader id="scroll" label="Scroll" plain="Resume" kanji="巻物" />
-  <div class="mx-auto max-w-page px-6 pb-12">
-    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-      <p class="text-tan">Preview below, or download the PDF.</p>
+<section class="grain-light relative bg-paper text-ink">
+  <SectionHeader id="scroll" numeral="伍" label="Scroll" plain="Resume" variant="paper" />
+
+  <div class="relative mx-auto max-w-page px-6 pb-24 lg:pl-24">
+    <div class="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-ink/20 pb-4">
+      <div>
+        <p class="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/60">Document</p>
+        <p class="mt-1 font-display italic text-ink" style="font-size:1.5rem; font-variation-settings:'SOFT' 80;">
+          Harsha Jaiganesh — Curriculum Vitae
+        </p>
+      </div>
       <a
         href="/resume.pdf"
         download
-        class="inline-block bg-konoha px-4 py-2 text-sm font-medium text-ink hover:brightness-110"
+        class="brush-link inline-flex items-center gap-3 bg-ink px-5 py-3 font-mono text-[11px] uppercase tracking-[0.3em] text-paper transition hover:bg-vermillion"
       >
-        Download PDF
+        ↓ Download PDF
       </a>
     </div>
+
     <object
       data="/resume.pdf"
       type="application/pdf"
-      class="h-[80vh] w-full border border-tan/20 bg-ink-2"
+      class="h-[82vh] w-full border border-ink/25 bg-paper-2 shadow-[8px_8px_0_0_rgba(20,17,13,0.12)]"
       aria-label="Harsha Jaiganesh resume preview"
     >
-      <p class="p-6 text-paper">
+      <p class="p-6 text-ink">
         Your browser can't embed PDFs.{" "}
-        <a class="text-konoha underline" href="/resume.pdf">Download the resume</a>.
+        <a class="brush-link text-vermillion" href="/resume.pdf">Download the resume</a>.
       </p>
     </object>
   </div>

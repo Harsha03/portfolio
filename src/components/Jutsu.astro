@@ -1,82 +1,42 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
 
-const groups: Array<{ label: string; items: string[] }> = [
-  {
-    label: "Frontier Models",
-    items: [
-      "Claude Haiku 4.5",
-      "Claude Opus",
-      "GPT-4o-mini",
-      "Gemini",
-      "HuggingFace",
-      "Whisper",
-    ],
-  },
-  {
-    label: "Agentic Patterns",
-    items: [
-      "Multi-agent orchestration",
-      "Tool schemas (strict JSON)",
-      "Structured outputs (Pydantic)",
-      "Async concurrent agents",
-      "Streaming outputs",
-      "Confidence-thresholded review",
-    ],
-  },
-  {
-    label: "RAG & Retrieval",
-    items: ["LangChain", "Chroma", "OpenAI embeddings", "Document chunking"],
-  },
-  {
-    label: "Languages",
-    items: ["Python", "TypeScript", "Swift", "JavaScript", "SQL"],
-  },
-  {
-    label: "iOS",
-    items: [
-      "Swift",
-      "SwiftUI",
-      "SwiftData",
-      "CoreLocation",
-      "UserNotifications",
-      "MapKit",
-    ],
-  },
-  {
-    label: "Web & Backend",
-    items: [
-      "Next.js 16",
-      "React 19",
-      "Tailwind",
-      "FastAPI",
-      "SSE streaming",
-      "JWT",
-      "SQLite",
-      "Docker",
-    ],
-  },
-  {
-    label: "Tooling & Testing",
-    items: ["uv", "pytest", "Vitest", "Playwright", "GitHub Actions", "Jira"],
-  },
+const groups: Array<{ label: string; items: string[]; kanji: string }> = [
+  { kanji: "模", label: "Frontier Models", items: ["Claude Haiku 4.5", "Claude Opus", "GPT-4o-mini", "Gemini", "HuggingFace", "Whisper"] },
+  { kanji: "術", label: "Agentic Patterns", items: ["Multi-agent orchestration", "Tool schemas (strict JSON)", "Structured outputs (Pydantic)", "Async concurrent agents", "Streaming outputs", "Confidence-thresholded review"] },
+  { kanji: "索", label: "RAG & Retrieval", items: ["LangChain", "Chroma", "OpenAI embeddings", "Document chunking"] },
+  { kanji: "語", label: "Languages", items: ["Python", "TypeScript", "Swift", "JavaScript", "SQL"] },
+  { kanji: "携", label: "iOS", items: ["Swift", "SwiftUI", "SwiftData", "CoreLocation", "UserNotifications", "MapKit"] },
+  { kanji: "網", label: "Web & Backend", items: ["Next.js 16", "React 19", "Tailwind", "FastAPI", "SSE streaming", "JWT", "SQLite", "Docker"] },
+  { kanji: "具", label: "Tooling & Testing", items: ["uv", "pytest", "Vitest", "Playwright", "GitHub Actions", "Jira"] },
 ];
 ---
 
-<section>
-  <SectionHeader id="jutsu" label="Jutsu" plain="Skills" kanji="術" />
-  <div class="mx-auto max-w-page space-y-6 px-6 pb-12">
-    {
-      groups.map((g) => (
-        <div>
-          <h3 class="mb-2 text-[11px] uppercase tracking-[0.2em] text-tan">{g.label}</h3>
-          <ul class="flex flex-wrap gap-2">
-            {g.items.map((s) => (
-              <li class="border border-tan/30 bg-ink-2 px-3 py-1 text-sm text-paper">{s}</li>
-            ))}
-          </ul>
-        </div>
-      ))
-    }
+<section class="relative bg-ink">
+  <SectionHeader id="jutsu" numeral="肆" label="Jutsu" plain="Skills" />
+
+  <div class="relative mx-auto max-w-page px-6 pb-24 lg:pl-24">
+    <div class="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2">
+      {
+        groups.map((g) => (
+          <div class="relative">
+            <div class="flex items-baseline gap-4">
+              <span class="font-jp text-vermillion/80" style="font-size:2.4rem; line-height:1;">{g.kanji}</span>
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold/70">Jutsu</p>
+                <h3 class="font-display text-paper" style="font-size:1.6rem; line-height:1; font-weight:600; font-variation-settings:'SOFT' 50, 'WONK' 1;">{g.label}</h3>
+              </div>
+            </div>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {g.items.map((s) => (
+                <li class="border border-paper/20 bg-ink-2 px-3 py-1.5 font-mono text-[12px] tracking-wide text-paper/90 transition-colors hover:border-vermillion/70 hover:text-paper">
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
   </div>
 </section>

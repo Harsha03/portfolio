@@ -2,42 +2,42 @@
 import SectionHeader from "./SectionHeader.astro";
 
 const links = [
-  {
-    label: "Email",
-    href: "mailto:jaiganeshharsha@gmail.com",
-    text: "jaiganeshharsha@gmail.com",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/harsha-jaiganesh/",
-    text: "/in/harsha-jaiganesh",
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/Harsha03",
-    text: "@Harsha03",
-  },
+  { label: "Email", href: "mailto:jaiganeshharsha@gmail.com", text: "jaiganeshharsha@gmail.com", kanji: "文" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/harsha-jaiganesh/", text: "/in/harsha-jaiganesh", kanji: "繋" },
+  { label: "GitHub", href: "https://github.com/Harsha03", text: "@Harsha03", kanji: "源" },
 ];
 ---
 
-<section>
-  <SectionHeader id="hawk" label="Messenger Hawk" plain="Contact" kanji="手紙" />
-  <div class="mx-auto grid max-w-page gap-4 px-6 pb-16 md:grid-cols-3">
-    {
-      links.map((l) => (
-        <a
-          href={l.href}
-          rel="noopener"
-          target={l.href.startsWith("mailto") ? "_self" : "_blank"}
-          class="border border-tan/20 bg-ink-2 p-6 transition-colors hover:border-konoha/60"
-        >
-          <p class="text-[11px] uppercase tracking-[0.2em] text-tan">{l.label}</p>
-          <p class="mt-2 font-serif text-xl text-paper">{l.text}</p>
-        </a>
-      ))
-    }
+<section class="relative bg-ink">
+  <SectionHeader id="hawk" numeral="陸" label="Messenger Hawk" plain="Contact" />
+
+  <div class="relative mx-auto max-w-page px-6 pb-20 lg:pl-24">
+    <div class="grid grid-cols-12 gap-6">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            rel="noopener"
+            target={l.href.startsWith("mailto") ? "_self" : "_blank"}
+            class="chakra-card group col-span-12 flex items-start gap-6 border border-paper/15 bg-ink-2 p-6 md:col-span-4 md:flex-col"
+          >
+            <span class="font-jp text-vermillion/80" style="font-size:3.2rem; line-height:1;">{l.kanji}</span>
+            <div>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold/80">{l.label}</p>
+              <p class="mt-2 font-display text-paper" style="font-size:1.35rem; line-height:1.15; font-variation-settings:'SOFT' 50, 'WONK' 1;">{l.text}</p>
+              <p class="mt-3 font-mono text-[11px] uppercase tracking-[0.25em] text-paper/50 brush-link">
+                Send ↗
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- colophon -->
+    <footer class="mt-16 grid grid-cols-12 gap-4 border-t border-paper/15 pt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-paper/50">
+      <p class="col-span-6">© {new Date().getFullYear()} · Harsha Jaiganesh</p>
+      <p class="col-span-6 text-right text-gold/70">Set in Fraunces & Newsreader · 木ノ葉</p>
+    </footer>
   </div>
-  <footer class="mx-auto max-w-page px-6 pb-10 text-xs text-tan/60">
-    © {new Date().getFullYear()} Harsha Jaiganesh · 木ノ葉
-  </footer>
 </section>

@@ -1,37 +1,31 @@
 ---
-const leaves = Array.from({ length: 14 }).map((_, i) => ({
-  left: (i * 7.3 + 3) % 100,
-  duration: 14 + ((i * 3) % 9),
-  delay: (i * 1.7) % 18,
-  drift: (i % 2 === 0 ? 1 : -1) * (30 + (i * 11) % 80),
-  size: 14 + ((i * 5) % 14),
-  opacity: 0.45 + ((i * 13) % 40) / 100,
+// Gold-tinted leaves drifting across the viewport. Paper-section friendly (overlay).
+const leaves = Array.from({ length: 16 }).map((_, i) => ({
+  left: (i * 6.4 + 3) % 100,
+  duration: 22 + ((i * 3) % 14),
+  delay: (i * 1.9) % 22,
+  drift: (i % 2 === 0 ? 1 : -1) * (28 + ((i * 13) % 90)),
+  size: 12 + ((i * 5) % 16),
+  opacity: 0.25 + ((i * 11) % 30) / 100,
+  tone: i % 3 === 0 ? "#b83227" : i % 3 === 1 ? "#c4a052" : "#8c7034",
 }));
 ---
 
-<div
-  aria-hidden="true"
-  class="pointer-events-none fixed inset-0 z-0 overflow-hidden"
->
+<div aria-hidden="true" class="pointer-events-none fixed inset-0 z-30 overflow-hidden">
   {
     leaves.map((l) => (
       <svg
         viewBox="0 0 40 40"
         width={l.size}
         height={l.size}
-        class="absolute text-konoha"
-        style={`left:${l.left}%; top:-5vh; opacity:${l.opacity}; --drift:${l.drift}px; animation: leaf-fall ${l.duration}s linear ${l.delay}s infinite;`}
+        class="absolute"
+        style={`left:${l.left}%; top:-5vh; color:${l.tone}; --leaf-max:${l.opacity}; --drift:${l.drift}px; animation: leaf-fall ${l.duration}s linear ${l.delay}s infinite; filter: drop-shadow(0 1px 0 rgba(0,0,0,0.15));`}
       >
         <path
           d="M20 4 C24 10 34 16 30 26 C27 32 22 36 20 36 C18 36 13 32 10 26 C6 16 16 10 20 4 Z"
           fill="currentColor"
         />
-        <path
-          d="M20 10 L20 34"
-          stroke="#0f0e0c"
-          stroke-width="1.2"
-          opacity="0.45"
-        />
+        <path d="M20 10 L20 34" stroke="#14110d" stroke-width="1.2" opacity="0.4" />
       </svg>
     ))
   }

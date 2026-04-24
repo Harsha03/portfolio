@@ -1,24 +1,47 @@
 ---
 interface Props {
+  id: string;
+  numeral: string;
   label: string;
   plain: string;
-  kanji: string;
-  id: string;
+  variant?: "paper" | "ink";
 }
-const { label, plain, kanji, id } = Astro.props;
+const { id, numeral, label, plain, variant = "ink" } = Astro.props;
+const onPaper = variant === "paper";
+const inkColor = onPaper ? "text-ink" : "text-paper";
+const muted = onPaper ? "text-ink/60" : "text-paper/60";
+const accent = onPaper ? "text-vermillion" : "text-vermillion";
+const ruleColor = onPaper ? "bg-ink/15" : "bg-paper/15";
 ---
 
-<header id={id} class="relative mx-auto max-w-page px-6 pt-24 pb-8 scroll-mt-16">
-  <span
-    aria-hidden="true"
-    class="pointer-events-none absolute -top-4 right-2 select-none font-jp text-[8rem] leading-none text-konoha md:text-[10rem]"
-    style="opacity:0.1; animation: kanji-pulse 7s ease-in-out infinite;"
-  >
-    {kanji}
-  </span>
-  <div class="flex items-baseline gap-3">
-    <h2 class="text-3xl font-bold text-paper md:text-4xl">{label}</h2>
-    <span class="text-xs uppercase tracking-[0.25em] text-tan">{plain}</span>
+<header id={id} class="relative mx-auto max-w-page scroll-mt-20 px-6 pt-24 pb-10 lg:pl-24">
+  <!-- top rule + meta -->
+  <div class={`mb-10 flex items-baseline justify-between gap-4 border-t ${onPaper ? "border-ink/20" : "border-paper/20"} pt-4 font-mono text-[11px] uppercase tracking-[0.3em] ${muted}`}>
+    <span>§ Section {numeral}</span>
+    <span class={accent}>{plain}</span>
   </div>
-  <div class="mt-4 h-px w-16 bg-konoha"></div>
+
+  <div class="grid grid-cols-12 gap-6">
+    <!-- giant kanji numeral, tategaki feel -->
+    <div class="col-span-2 md:col-span-1">
+      <div
+        class={`font-jp leading-none ${accent}`}
+        style="font-size: clamp(4rem, 8vw, 8rem); line-height: 0.85;"
+      >{numeral}</div>
+    </div>
+
+    <!-- section heading -->
+    <div class="col-span-10 md:col-span-11">
+      <h2
+        class={`font-display font-bold ${inkColor}`}
+        style="font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95; letter-spacing: -0.03em; font-variation-settings: 'SOFT' 50, 'WONK' 1;"
+      >
+        {label}
+      </h2>
+      <div class="mt-4 flex items-center gap-4">
+        <span class={`h-[1px] w-16 ${variant === "paper" ? "bg-vermillion" : "bg-vermillion"}`}></span>
+        <span class={`font-mono text-[11px] uppercase tracking-[0.3em] ${muted}`}>{plain}</span>
+      </div>
+    </div>
+  </div>
 </header>

@@ -1,26 +1,31 @@
 ---
 const items = [
-  { href: "#nindo", label: "Nindo" },
-  { href: "#log", label: "Mission Log" },
-  { href: "#missions", label: "Missions" },
-  { href: "#jutsu", label: "Jutsu" },
-  { href: "#scroll", label: "Scroll" },
-  { href: "#hawk", label: "Contact" },
+  { href: "#nindo", label: "壱 · Nindo" },
+  { href: "#missions", label: "弐 · Missions" },
+  { href: "#log", label: "参 · Log" },
+  { href: "#jutsu", label: "肆 · Jutsu" },
+  { href: "#scroll", label: "伍 · Scroll" },
+  { href: "#hawk", label: "陸 · Contact" },
 ];
 ---
 
-<nav class="sticky top-0 z-40 border-b border-tan/10 bg-ink/85 backdrop-blur">
-  <div class="mx-auto flex max-w-page items-center justify-between gap-4 px-6 py-3 text-sm">
-    <a href="#top" class="font-serif text-base font-bold text-paper">Harsha Jaiganesh</a>
-    <ul class="hidden gap-5 text-tan md:flex">
+<nav class="sticky top-0 z-40 border-b border-paper/10 bg-ink/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-page items-center justify-between gap-6 px-6 py-3.5 lg:pl-24">
+    <a href="#top" class="font-display text-[15px] font-bold tracking-tight text-paper" style="font-variation-settings:'SOFT' 50, 'WONK' 1;">
+      Harsha Jaiganesh<span class="ml-2 text-vermillion">·</span><span class="ml-2 font-mono text-[10px] uppercase tracking-[0.3em] text-gold/80">Portfolio</span>
+    </a>
+    <ul class="hidden gap-6 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/70 md:flex">
       {items.map((i) => (
         <li>
-          <a href={i.href} class="transition-colors hover:text-konoha">{i.label}</a>
+          <a href={i.href} class="brush-link transition-colors hover:text-paper">{i.label}</a>
         </li>
       ))}
     </ul>
-    <a href="/resume.pdf" class="bg-konoha px-3 py-1.5 text-xs font-medium text-ink hover:brightness-110">
-      Download CV
+    <a
+      href="/resume.pdf"
+      class="brush-link font-mono text-[11px] uppercase tracking-[0.25em] text-vermillion"
+    >
+      ↓ CV
     </a>
   </div>
 </nav>
