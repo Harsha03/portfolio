@@ -217,3 +217,4 @@ No runtime fetches, no API calls, no client-side state.
 - Pick a tagline from the three options above (or write your own)
 - Review the extracted `experience.json` before first deploy
 - Approve the About copy draft before first deploy
+1
