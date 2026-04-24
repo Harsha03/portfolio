@@ -1,43 +1,80 @@
-# Astro Starter Kit: Minimal
+# 木ノ葉 · Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
+A Japanese-editorial portfolio site for **Harsha Jaiganesh** — Agentic AI engineer. Built with Astro, Tailwind v4, and Fraunces + Newsreader + Shippori Mincho typography. Paper & ink alternating sections, hanko seal stamps, kanji numerals, Fūinjutsu sealing circle, hand-seal strip, chakra-nature tags, and Will of Fire dividers.
+
+![Portfolio hero](docs/preview.png)
+
+## Preview
+
+<p align="center">
+  <img src="docs/preview-full.png" alt="Full page preview" width="720" />
+</p>
+
+## Sections
+
+| No. | Kanji | Section         | English             |
+|-----|-------|-----------------|---------------------|
+| 壱  | 道    | Nindo           | About               |
+| 弐  | 巻物  | Missions        | Featured work       |
+| 参  | 任務  | Mission Log     | Additional projects |
+| 肆  | 術    | Jutsu           | Skills              |
+| 伍  | 巻物  | Scroll          | Resume              |
+| 陸  | 手紙  | Messenger Hawk  | Contact             |
+
+## Stack
+
+- **Astro** (static output, zero runtime JS by default)
+- **Tailwind v4** (CSS-first `@theme` tokens)
+- **TypeScript**
+- Self-hosted variable fonts: Fraunces, Newsreader, Shippori Mincho, JetBrains Mono
+- Deployed on **Netlify**
+
+## Develop
+
+```bash
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # static output to dist/
+npm run preview  # serve the build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Content
 
-## 🚀 Project Structure
+All editable content lives in two JSON files:
 
-Inside of your Astro project, you'll see the following folders and files:
+- `src/data/projects.json` — featured missions (title, rank, chakra nature, stack, summary)
+- `src/data/experience.json` — additional projects for the Mission Log
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+The resume PDF lives at `public/resume.pdf`.
+
+## Structure
+
+```
+src/
+├── pages/index.astro          single-page composition
+├── layouts/Base.astro         shared head, fonts, meta
+├── components/
+│   ├── Hero.astro             editorial masthead + rotating sealing circles
+│   ├── Nindo.astro            about section (paper)
+│   ├── Missions.astro         featured projects (ink)
+│   ├── MissionLog.astro       additional projects (paper)
+│   ├── Jutsu.astro            skills (ink)
+│   ├── Scroll.astro           resume with unfurl toggle (paper)
+│   ├── MessengerHawk.astro    contact (ink)
+│   ├── SealingCircle.astro    Fūinjutsu SVG with rotating rings
+│   ├── HandSealStrip.astro    12 zodiac hand seals with staggered flicker
+│   ├── FireDivider.astro      Will of Fire transitions between paper/ink
+│   ├── ChakraNature.astro     火/水/風/土/雷 badges
+│   ├── FallingLeaves.astro    drifting Konoha leaves
+│   ├── Hanko.astro            animated red seal stamp
+│   ├── SectionHeader.astro    kanji numeral + display heading
+│   └── Nav.astro              sticky navigation
+├── data/
+│   ├── projects.json
+│   └── experience.json
+└── styles/global.css          Tailwind + tokens + animations
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## License
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Content © Harsha Jaiganesh. Code: MIT.
