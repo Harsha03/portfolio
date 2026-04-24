@@ -1,8 +1,10 @@
 # 木ノ葉 · Portfolio
 
+**Live:** [harsha-jaiganesh.netlify.app](https://harsha-jaiganesh.netlify.app)
+
 A Japanese-editorial portfolio site for **Harsha Jaiganesh** — Agentic AI engineer. Built with Astro, Tailwind v4, and Fraunces + Newsreader + Shippori Mincho typography. Paper & ink alternating sections, hanko seal stamps, kanji numerals, Fūinjutsu sealing circle, hand-seal strip, chakra-nature tags, and Will of Fire dividers.
 
-![Portfolio hero](docs/preview.png)
+[![Portfolio hero](docs/preview.png)](https://harsha-jaiganesh.netlify.app)
 
 ## Preview
 
