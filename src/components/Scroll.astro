@@ -6,32 +6,122 @@ import SectionHeader from "./SectionHeader.astro";
   <SectionHeader id="scroll" numeral="伍" label="Scroll" plain="Resume" variant="paper" />
 
   <div class="relative mx-auto max-w-page px-6 pb-24 lg:pl-24">
-    <div class="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-ink/20 pb-4">
-      <div>
+    <div class="grid grid-cols-12 gap-6 border-b border-ink/20 pb-6">
+      <div class="col-span-12 md:col-span-7">
         <p class="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/60">Document</p>
-        <p class="mt-1 font-display italic text-ink" style="font-size:1.5rem; font-variation-settings:'SOFT' 80;">
+        <p class="mt-1 font-display italic text-ink" style="font-size:1.6rem; font-variation-settings:'SOFT' 80;">
           Harsha Jaiganesh — Curriculum Vitae
         </p>
+        <p class="mt-3 max-w-prose text-ink/75">
+          One-page PDF. Preview inline, open in a new tab, or download.
+        </p>
       </div>
-      <a
-        href="/resume.pdf"
-        download
-        class="brush-link inline-flex items-center gap-3 bg-ink px-5 py-3 font-mono text-[11px] uppercase tracking-[0.3em] text-paper transition hover:bg-vermillion"
-      >
-        ↓ Download PDF
-      </a>
+      <div class="col-span-12 flex flex-wrap items-end gap-3 md:col-span-5 md:justify-end">
+        <button
+          id="scroll-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="scroll-preview"
+          class="group inline-flex items-center gap-3 border border-ink/30 bg-paper px-5 py-3 font-mono text-[11px] uppercase tracking-[0.3em] text-ink transition hover:border-vermillion hover:text-vermillion"
+        >
+          <span class="scroll-toggle-label">Unfurl preview</span>
+          <span class="scroll-toggle-arrow transition-transform">▾</span>
+        </button>
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener"
+          class="brush-link inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.3em] text-ink/80"
+        >
+          Open in tab ↗
+        </a>
+        <a
+          href="/resume.pdf"
+          download
+          class="inline-flex items-center gap-3 bg-ink px-5 py-3 font-mono text-[11px] uppercase tracking-[0.3em] text-paper transition hover:bg-vermillion"
+        >
+          ↓ Download PDF
+        </a>
+      </div>
     </div>
 
-    <object
-      data="/resume.pdf"
-      type="application/pdf"
-      class="h-[82vh] w-full border border-ink/25 bg-paper-2 shadow-[8px_8px_0_0_rgba(20,17,13,0.12)]"
-      aria-label="Harsha Jaiganesh resume preview"
-    >
-      <p class="p-6 text-ink">
-        Your browser can't embed PDFs.{" "}
-        <a class="brush-link text-vermillion" href="/resume.pdf">Download the resume</a>.
-      </p>
-    </object>
+    <!-- Collapsed state: a stylized rolled-scroll card. Clicks also unfurl. -->
+    <div id="scroll-placeholder" class="mt-8">
+      <button
+        type="button"
+        class="scroll-placeholder-btn group flex w-full items-center justify-between gap-6 border border-ink/25 bg-paper-2 p-6 text-left shadow-[8px_8px_0_0_rgba(20,17,13,0.12)] transition hover:border-vermillion hover:shadow-[10px_10px_0_0_rgba(184,50,39,0.2)]"
+      >
+        <div class="flex items-center gap-5">
+          <!-- rolled-scroll icon -->
+          <svg viewBox="0 0 64 64" width="52" height="52" class="shrink-0 text-ink" aria-hidden="true">
+            <rect x="6" y="10" width="52" height="44" rx="2" fill="#ece0bf" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="4" y="8" width="56" height="6" rx="3" fill="#b83227" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="4" y="50" width="56" height="6" rx="3" fill="#b83227" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="14" y1="22" x2="50" y2="22" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="14" y1="28" x2="50" y2="28" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="14" y1="34" x2="42" y2="34" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="14" y1="40" x2="46" y2="40" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ink/55">Sealed scroll · 封</p>
+            <p class="mt-1 font-display text-ink" style="font-size:1.35rem; line-height:1.15; font-variation-settings:'SOFT' 50, 'WONK' 1;">
+              Harsha_Jaiganesh_Resume.pdf
+            </p>
+            <p class="mt-1 font-mono text-[10px] tracking-[0.2em] text-ink/50">
+              1 page · ~157 KB · PDF
+            </p>
+          </div>
+        </div>
+        <span class="font-mono text-[11px] uppercase tracking-[0.3em] text-ink/70 transition group-hover:text-vermillion">
+          Click to unfurl →
+        </span>
+      </button>
+    </div>
+
+    <!-- Preview (hidden by default) -->
+    <div id="scroll-preview" hidden class="mt-8">
+      <object
+        data="/resume.pdf"
+        type="application/pdf"
+        class="h-[82vh] w-full border border-ink/25 bg-paper-2 shadow-[8px_8px_0_0_rgba(20,17,13,0.12)]"
+        aria-label="Harsha Jaiganesh resume preview"
+      >
+        <p class="p-6 text-ink">
+          Your browser can't embed PDFs.{" "}
+          <a class="brush-link text-vermillion" href="/resume.pdf">Download the resume</a>.
+        </p>
+      </object>
+    </div>
   </div>
 </section>
+
+<script>
+  const toggle = document.getElementById("scroll-toggle");
+  const preview = document.getElementById("scroll-preview");
+  const placeholder = document.getElementById("scroll-placeholder");
+  const placeholderBtn = placeholder?.querySelector(".scroll-placeholder-btn") as HTMLButtonElement | null;
+  const label = toggle?.querySelector(".scroll-toggle-label");
+  const arrow = toggle?.querySelector(".scroll-toggle-arrow");
+
+  const open = () => {
+    if (!preview) return;
+    preview.hidden = false;
+    if (placeholder) placeholder.hidden = true;
+    toggle?.setAttribute("aria-expanded", "true");
+    if (label) label.textContent = "Hide preview";
+    if (arrow) (arrow as HTMLElement).style.transform = "rotate(180deg)";
+  };
+  const close = () => {
+    if (!preview) return;
+    preview.hidden = true;
+    if (placeholder) placeholder.hidden = false;
+    toggle?.setAttribute("aria-expanded", "false");
+    if (label) label.textContent = "Unfurl preview";
+    if (arrow) (arrow as HTMLElement).style.transform = "rotate(0deg)";
+  };
+
+  toggle?.addEventListener("click", () => {
+    preview?.hidden ? open() : close();
+  });
+  placeholderBtn?.addEventListener("click", open);
+</script>
